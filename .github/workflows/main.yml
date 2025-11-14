@@ -15,41 +15,41 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up Node.js
+      # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'   # adjust to your project Node version
+          node-version: '20'   # adjust if needed
           cache: 'npm'
 
       # 3. Debug repo layout (optional, remove after confirming paths)
       - name: Debug repo layout
         run: |
           pwd
-          ls -la
+          ls -R
           find . -maxdepth 5 -type f -name package.json -print
 
       # 4. Install backend dependencies
       - name: Install backend dependencies
-        working-directory: .backend/server   # adjust if your backend is elsewhere
+        working-directory: .   # backend package.json is in repo root
         run: npm ci
 
       # 5. Install frontend dependencies
       - name: Install frontend dependencies
-        working-directory: ./client   # adjust if your frontend is elsewhere
+        working-directory: ./frontend
         run: npm ci
 
       # 6. Build frontend
       - name: Build frontend
-        working-directory: ./client
+        working-directory: ./frontend
         run: npm run build
 
       # 7. Run backend tests (optional)
       - name: Run backend tests
-        working-directory: .backend/server
+        working-directory: .
         run: npm test
 
       # 8. Run frontend tests (optional)
       - name: Run frontend tests
-        working-directory: ./client
+        working-directory: ./frontend
         run: npm test
