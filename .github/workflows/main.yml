@@ -27,6 +27,12 @@ jobs:
       working-directory: frontend
       run: npm ci
 
+    - name: Debug repo layout
+      run: |
+        pwd
+        ls -la
+        find . -maxdepth 5 -type f -name package.json -print
+
     - name: Run frontend tests
       working-directory: frontend
       run: npm test || echo "No frontend tests found"
@@ -38,3 +44,19 @@ jobs:
     - name: Build frontend
       working-directory: frontend
       run: npm run build
+
+    - name: Install backend dependencies
+      working-directory: backend
+      run: npm ci
+
+    - name: Run backend tests
+      working-directory: backend
+      run: npm test || echo "No backend tests found"
+
+    - name: Lint backend
+      working-directory: backend
+      run: npm run lint || echo "No backend lint configured"
+
+    - name: Build backend
+      working-directory: backend
+      run: npm run build || echo "No backend build configured"
