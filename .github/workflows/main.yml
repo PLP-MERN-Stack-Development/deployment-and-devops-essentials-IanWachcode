@@ -31,7 +31,7 @@ jobs:
 
       # 4. Install backend dependencies
       - name: Install backend dependencies
-        working-directory: ./server   # adjust if your backend is elsewhere
+        working-directory: .backend/server   # adjust if your backend is elsewhere
         run: npm ci
 
       # 5. Install frontend dependencies
@@ -46,7 +46,7 @@ jobs:
 
       # 7. Run backend tests (optional)
       - name: Run backend tests
-        working-directory: ./server
+        working-directory: .backend/server
         run: npm test
 
       # 8. Run frontend tests (optional)
